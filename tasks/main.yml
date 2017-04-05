@@ -5,14 +5,11 @@
   with_items:
     - redis
 
-- name: install launchagents
-  file: src=/usr/local/opt/redis/homebrew.mxcl.redis.plist path=~/Library/LaunchAgents/homebrew.mxcl.redis.plist state=link force=yes
-
 - name: check if redis is loaded
-  shell: launchctl list
+  shell: brew sevices list | grep redis | grep started
   changed_when: False
   register: redis_loaded_result
 
 - name: launch redis
-  shell: launchctl load ~/Library/LaunchAgents/homebrew.mxcl.redis.plist
-  when: "'homebrew.mxcl.redis' not in redis_loaded_result.stdout"
+  shell: brew services start redis
+  when: "'redis' not in redis_loaded_result.stdout"
