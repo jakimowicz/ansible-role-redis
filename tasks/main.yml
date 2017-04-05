@@ -6,7 +6,7 @@
     - redis
 
 - name: check if redis is loaded
-  shell: brew sevices list | grep redis
+  shell: brew services list | grep redis
   changed_when: False
   register: redis_loaded_result
 
