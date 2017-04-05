@@ -6,10 +6,10 @@
     - redis
 
 - name: check if redis is loaded
-  shell: brew sevices list | grep redis | grep started
+  shell: brew sevices list | grep redis
   changed_when: False
   register: redis_loaded_result
 
 - name: launch redis
   shell: brew services start redis
-  when: "'redis' not in redis_loaded_result.stdout"
+  when: "'started' not in redis_loaded_result.stdout"
